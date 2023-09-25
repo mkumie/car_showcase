@@ -20,6 +20,7 @@ export default function Home() {
   // });
   const [allCars, setAllCars] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   // search states
   const [manufacturer, setManufacturer] = useState("");
@@ -44,8 +45,9 @@ export default function Home() {
       });
 
       setAllCars(result);
-    } catch (error) {
-      console.log(error);
+    } catch (err: any) {
+      // console.log(error);
+      setError(err);
     } finally {
       setLoading(false);
     }
@@ -91,7 +93,7 @@ export default function Home() {
             {loading && (
               <div className="mt-16 w-full flex-center">
                 <Image
-                  src="/loader.svg"
+                  src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a36e39ed-2182-4fa3-af43-299e3d89d2de/db8jbxg-51f41c0c-b7ed-48f6-9128-3e5e701bfd88.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2EzNmUzOWVkLTIxODItNGZhMy1hZjQzLTI5OWUzZDg5ZDJkZVwvZGI4amJ4Zy01MWY0MWMwYy1iN2VkLTQ4ZjYtOTEyOC0zZTVlNzAxYmZkODguZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.XDGFAM5d5ZD20e_6JEQQrAkqOFwIwIhaTsxn4Uymnxk"
                   alt="loader"
                   width={50}
                   height={50}
@@ -108,7 +110,8 @@ export default function Home() {
         ) : (
           <div className="home__error-container">
             <h2 className="text-black text-xl font-bold">Oops, no results</h2>
-            <p>{allCars?.message}</p>
+            <p>{error}</p>
+            {/* <p>{allCars?.message}</p> */}
           </div>
         )}
       </div>
